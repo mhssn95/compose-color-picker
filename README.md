@@ -2,7 +2,7 @@
 
 🎨 Color Picker for Jetpack compose
 
-![colorPicker](/Users/mhssn/Desktop/colorPicker.png)
+![colorPickers](/assets/colorPickers.png)
 
 A color picker for Jetpack compose 🎨
 
@@ -45,7 +45,7 @@ ColorPicker(
   )
   ```
 
-	![Artboard 1](/Users/mhssn/Desktop/Artboard 1.png)
+	![circleColorPickers](/assets/circleColorPicker.png)
 
 
 - Ring
