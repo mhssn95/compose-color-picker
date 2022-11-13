@@ -105,7 +105,7 @@ ColorPickerDialog(
 
   ```kotlin
   Box(
-  		modifier = Modifier
+  	  modifier = Modifier
       .width(205.dp)
       .height(300.dp)
       .clip(RoundedCornerShape(32.dp))
@@ -114,7 +114,7 @@ ColorPickerDialog(
   )
   ```
 
-  ![Artboard 2](/Users/mhssn/Desktop/Artboard 2.png)
+  ![transparentBackground](/assets/transparentBackground.png)
 
 # License
 
