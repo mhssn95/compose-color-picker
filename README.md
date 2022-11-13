@@ -31,7 +31,7 @@ ColorPicker(
   
   ```kotlin
   ColorPickerType.Classic(
-  		showAlphaBar = true
+      showAlphaBar = true
   )
   ```
   
@@ -52,7 +52,7 @@ ColorPicker(
 
   ```kotlin
   ColorPickerType.Ring(
-  		ringWidth = 10.dp,
+      ringWidth = 10.dp,
       previewRadius = 80.dp,
       showLightColorBar = true,
       showDarkColorBar = true,
@@ -69,7 +69,7 @@ ColorPicker(
   ColorPickerType.SimpleRing(
       colorWidth = 20.dp,
       tracksCount = 5,
-  		sectorsCount = 24
+      sectorsCount = 24
   )
   ```
 
@@ -77,15 +77,15 @@ ColorPicker(
 
 ```kotlin
 ColorPickerDialog(
-		show = showDialog,
+    show = showDialog,
     type = colorPickerType,
     properties = DialogProperties(),
     onDismissRequest = {
-    		showDialog = false
-		},
+    	showDialog = false
+    },
     onPickedColor = {
-    		color = it
-		},
+    	color = it
+    },
 )
 ```
 
@@ -105,7 +105,7 @@ ColorPickerDialog(
 
   ```kotlin
   Box(
-  	  modifier = Modifier
+      modifier = Modifier
       .width(205.dp)
       .height(300.dp)
       .clip(RoundedCornerShape(32.dp))
