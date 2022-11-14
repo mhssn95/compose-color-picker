@@ -2,6 +2,7 @@ package io.mhssn.colorpicker.pickers
 
 import android.view.MotionEvent
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -60,6 +61,7 @@ internal fun SimpleRingColorPicker(
     }
     Canvas(modifier = modifier
         .size(280.dp)
+        .aspectRatio(1f)
         .onSizeChanged {
             radius = it.width / 2f
         }
