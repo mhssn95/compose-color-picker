@@ -28,7 +28,7 @@ import kotlin.math.roundToInt
 @ExperimentalComposeUiApi
 @Composable
 internal fun CircleColorPicker(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     showAlphaBar: Boolean,
     showBrightnessBar: Boolean,
     lightCenter: Boolean,

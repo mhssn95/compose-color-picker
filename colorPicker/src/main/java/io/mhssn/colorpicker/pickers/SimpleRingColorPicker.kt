@@ -32,7 +32,7 @@ import kotlin.math.roundToInt
 @ExperimentalComposeUiApi
 @Composable
 internal fun SimpleRingColorPicker(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     colorWidth: Dp,
     tracksCount: Int,
     sectorsCount: Int,

@@ -30,6 +30,10 @@ internal fun DrawScope.drawTransparentBackground(verticalBoxesSize: Int = 10) {
     }
 }
 
-fun Modifier.transparentBackground(verticalBoxesCount: Int = 10) = this.drawBehind {
-    drawTransparentBackground(verticalBoxesCount)
+/**
+ * Draw behind the composable a transparent effect background.
+ * @param verticalBoxesAmount Amount of the white and gray boxes for a single column.
+ */
+fun Modifier.transparentBackground(verticalBoxesAmount: Int = 10) = this.drawBehind {
+    drawTransparentBackground(verticalBoxesAmount)
 }

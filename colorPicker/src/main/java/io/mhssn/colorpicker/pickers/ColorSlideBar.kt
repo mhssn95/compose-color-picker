@@ -76,6 +76,6 @@ internal fun ColorSlideBar(colors: List<Color>, onProgress: (Float) -> Unit) {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 @Preview
-fun ColorSlideBarPreview() {
+private fun ColorSlideBarPreview() {
     ColorSlideBar(Colors.gradientColors) {}
 }

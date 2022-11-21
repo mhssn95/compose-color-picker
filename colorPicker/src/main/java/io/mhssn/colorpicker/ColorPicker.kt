@@ -31,22 +31,44 @@ import io.mhssn.colorpicker.pickers.RingColorPicker
 import io.mhssn.colorpicker.pickers.SimpleRingColorPicker
 
 sealed class ColorPickerType {
+    /**
+     * @param showAlphaBar Sets the visibility of the alpha bar.
+     */
     class Classic(val showAlphaBar: Boolean = true) : ColorPickerType()
+
+    /**
+     * @param showBrightnessBar Sets the visibility of the brightness bar.
+     * @param showAlphaBar Sets the visibility of the alpha bar.
+     * @param lightCenter Changes the center of the circle to black or white.
+     */
     class Circle(
         val showBrightnessBar: Boolean = true,
         val showAlphaBar: Boolean = true,
         val lightCenter: Boolean = true
     ) : ColorPickerType()
 
+    /**
+     * @param ringWidth Sets the color ring width.
+     * @param previewRadius Sets the radius of the center color preview circle.
+     * @param showLightnessBar Sets the visibility of the lightness bar.
+     * @param showDarknessBar Sets the visibility of the darkness bar.
+     * @param showAlphaBar Sets the visibility of the alpha bar.
+     * @param showColorPreview Sets the visibility of the center color preview circle.
+     */
     class Ring(
         val ringWidth: Dp = 10.dp,
         val previewRadius: Dp = 80.dp,
-        val showLightColorBar: Boolean = true,
-        val showDarkColorBar: Boolean = true,
+        val showLightnessBar: Boolean = true,
+        val showDarknessBar: Boolean = true,
         val showAlphaBar: Boolean = true,
         val showColorPreview: Boolean = true
     ) : ColorPickerType()
 
+    /**
+     * @param colorWidth Arc width of all colors.
+     * @param tracksCount Amount of the tracks.
+     * @param sectorsCount Amount of the sectors for each track.
+     */
     class SimpleRing(
         val colorWidth: Dp = 20.dp,
         val tracksCount: Int = 5,
@@ -54,6 +76,10 @@ sealed class ColorPickerType {
     ) : ColorPickerType()
 }
 
+/**
+ * @param type Color picker type example [ColorPickerType.Circle].
+ * @param onPickedColor Executes when the user selects a color.
+ */
 @ExperimentalComposeUiApi
 @Composable
 fun ColorPicker(
@@ -61,39 +87,44 @@ fun ColorPicker(
     type: ColorPickerType = ColorPickerType.Classic(),
     onPickedColor: (Color) -> Unit
 ) {
-    when (type) {
-        is ColorPickerType.Classic -> ClassicColorPicker(
-            modifier = modifier,
-            showAlphaBar = type.showAlphaBar,
-            onPickedColor = onPickedColor,
-        )
-        is ColorPickerType.Circle -> CircleColorPicker(
-            modifier = modifier,
-            showAlphaBar = type.showAlphaBar,
-            showBrightnessBar = type.showBrightnessBar,
-            lightCenter = type.lightCenter,
-            onPickedColor = onPickedColor
-        )
-        is ColorPickerType.Ring -> RingColorPicker(
-            modifier = modifier,
-            ringWidth = type.ringWidth,
-            previewRadius = type.previewRadius,
-            showLightColorBar = type.showLightColorBar,
-            showDarkColorBar = type.showDarkColorBar,
-            showAlphaBar = type.showAlphaBar,
-            showColorPreview = type.showColorPreview,
-            onPickedColor = onPickedColor
-        )
-        is ColorPickerType.SimpleRing -> SimpleRingColorPicker(
-            modifier = modifier,
-            colorWidth = type.colorWidth,
-            tracksCount = type.tracksCount,
-            sectorsCount = type.sectorsCount,
-            onPickedColor = onPickedColor
-        )
+    Box(modifier = modifier) {
+        when (type) {
+            is ColorPickerType.Classic -> ClassicColorPicker(
+                showAlphaBar = type.showAlphaBar,
+                onPickedColor = onPickedColor,
+            )
+            is ColorPickerType.Circle -> CircleColorPicker(
+                showAlphaBar = type.showAlphaBar,
+                showBrightnessBar = type.showBrightnessBar,
+                lightCenter = type.lightCenter,
+                onPickedColor = onPickedColor
+            )
+            is ColorPickerType.Ring -> RingColorPicker(
+                ringWidth = type.ringWidth,
+                previewRadius = type.previewRadius,
+                showLightColorBar = type.showLightnessBar,
+                showDarkColorBar = type.showDarknessBar,
+                showAlphaBar = type.showAlphaBar,
+                showColorPreview = type.showColorPreview,
+                onPickedColor = onPickedColor
+            )
+            is ColorPickerType.SimpleRing -> SimpleRingColorPicker(
+                colorWidth = type.colorWidth,
+                tracksCount = type.tracksCount,
+                sectorsCount = type.sectorsCount,
+                onPickedColor = onPickedColor
+            )
+        }
     }
 }
 
+/**
+ * @param show Dialog Visibility.
+ * @param onDismissRequest Executes when the user tries to dismiss the dialog.
+ * @param properties [DialogProperties] for further customization of this dialog's behavior.
+ * @param type Color picker type example [ColorPickerType.Classic].
+ * @param onPickedColor Executes when the user selects a color from the color picker dialog.
+ */
 @ExperimentalComposeUiApi
 @Composable
 fun ColorPickerDialog(
@@ -135,7 +166,7 @@ fun ColorPickerDialog(
                                     .size(50.dp, 30.dp)
                                     .clip(RoundedCornerShape(50))
                                     .border(0.3.dp, Color.LightGray, RoundedCornerShape(50))
-                                    .transparentBackground(verticalBoxesCount = 4)
+                                    .transparentBackground(verticalBoxesAmount = 4)
                                     .background(color)
                             )
                             Text(

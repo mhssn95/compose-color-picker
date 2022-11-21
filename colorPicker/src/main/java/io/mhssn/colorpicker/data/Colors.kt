@@ -2,7 +2,7 @@ package io.mhssn.colorpicker.data
 
 import androidx.compose.ui.graphics.Color
 
-object Colors {
+internal object Colors {
     val gradientColors = listOf(
         Color(0xffff0000),
         Color(0xffffff00),

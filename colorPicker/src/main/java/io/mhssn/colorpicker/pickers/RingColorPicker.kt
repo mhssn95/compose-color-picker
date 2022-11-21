@@ -29,7 +29,7 @@ import kotlin.math.roundToInt
 @ExperimentalComposeUiApi
 @Composable
 internal fun RingColorPicker(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     ringWidth: Dp,
     previewRadius: Dp,
     showLightColorBar: Boolean,

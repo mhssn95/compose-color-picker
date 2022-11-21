@@ -4,6 +4,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import kotlin.math.roundToInt
 
+/**
+ * Returns an integer array for all color channels value.
+ */
 fun Color.argb(): Array<Int> {
     val argb = toArgb()
     val alpha = argb shr 24 and 0xff
@@ -13,33 +16,59 @@ fun Color.argb(): Array<Int> {
     return arrayOf(alpha, red, green, blue)
 }
 
+/**
+ * Returns the red value as an integer.
+ */
 fun Color.red(): Int {
     return toArgb() shr 16 and 0xff
 }
 
+/**
+ * Returns the green value as an integer.
+ */
 fun Color.green(): Int {
     return toArgb() shr 8 and 0xff
 }
 
+/**
+ * Returns the blue value as an integer.
+ */
 fun Color.blue(): Int {
     return toArgb() and 0xff
 }
 
+/**
+ * Returns the alpha value as an integer.
+ */
 fun Color.alpha(): Int {
     return toArgb() shr 24 and 0xff
 }
 
-fun Color.toHex(): String {
+/**
+ * Returns ARGB color as a hex string.
+ * @param hexPrefix Add # char before the hex number.
+ * @param includeAlpha Include the alpha value within the hex string.
+ */
+fun Color.toHex(hexPrefix: Boolean = false, includeAlpha: Boolean = true): String {
     val (alpha, red, green, blue) = argb()
-    return alpha.toHex().plus(red.toHex()).plus(green.toHex()).plus(blue.toHex())
+    return buildString {
+        if (hexPrefix) {
+            append("#")
+        }
+        if (includeAlpha) {
+            append(alpha.toHex())
+        }
+        append(red.toHex())
+        append(green.toHex())
+        append(blue.toHex())
+    }
 }
 
 private fun Int.toHex(): String {
     return Integer.toHexString(this).let {
         if (it.length == 1) {
             "0$it"
-        }
-        else {
+        } else {
             it
         }
     }

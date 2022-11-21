@@ -108,7 +108,7 @@ fun App() {
                 .size(80.dp, 50.dp)
                 .clip(RoundedCornerShape(50))
                 .border(0.3.dp, Color.LightGray, RoundedCornerShape(50))
-                .transparentBackground(verticalBoxesCount = 8)
+                .transparentBackground(verticalBoxesAmount = 8)
                 .background(color)
         )
         Spacer(modifier = Modifier.height(24.dp))

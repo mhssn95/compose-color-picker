@@ -1,10 +1,29 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id("org.jetbrains.dokka") version "1.7.20"
+    id 'maven-publish'
+    id 'signing'
 }
 
+ext {
+    GROUP_ID = 'io.mhssn'
+    ARTIFACT_ID = 'colorpicker'
+    VERSION = '1.0.0'
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+ext["signing.keyId"] = properties.getProperty("signing.keyId", "")
+ext["signing.password"] = properties.getProperty("signing.password", "")
+ext["signing.secretKeyRingFile"] = properties.getProperty("signing.secretKeyRingFile", "")
+ext["ossrhUsername"] = properties.getProperty("ossrhUsername", "")
+ext["ossrhPassword"] = properties.getProperty("ossrhPassword", "")
+ext["sonatypeStagingProfileId"] = properties.getProperty("sonatypeStagingProfileId", "")
+
 android {
-    namespace 'io.mhssn.colorpicker'
+    namespace GROUP_ID+"."+ARTIFACT_ID
     compileSdk 33
 
     defaultConfig {
@@ -34,17 +53,88 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.2"
     }
+    defaultConfig {
+        aarMetadata {
+            minCompileSdk = 33
+        }
+    }
+}
+
+task androidSourceJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.kotlin.srcDirs
+}
+
+task javadocJar(type: Jar) {
+    dependsOn("dokkaHtml")
+    archiveClassifier.set('javadoc')
+    from "${buildDir}/dokka/html"
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = GROUP_ID
+            artifactId = ARTIFACT_ID
+            version = VERSION
+
+            artifact(javadocJar)
+            artifact(androidSourceJar)
+
+            pom {
+                name = artifactId
+                description = "A color picker for Jetpack compose"
+                url = "https://github.com/mhssn95/compose-color-picker"
+                licenses {
+                    license {
+                        name = 'ColorPicker License'
+                        url = "https://github.com/mhssn95/compose-color-picker/blob/main/LICENSE"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "mhssn"
+                        name = "Mhssn Alrobily"
+                    }
+                }
+                scm {
+                    connection = "scm:git:github.com/mhssn95/compose-color-picker.git"
+                    developerConnection = "scm:git:ssh://github.com/mhssn95/compose-color-picker.git"
+                    url = "https://github.com/mhssn95/compose-color-picker/tree/main"
+                }
+            }
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "sonatype"
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+
+            credentials {
+                username ossrhUsername
+                password ossrhPassword
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
 }
 
 dependencies {
-    implementation "androidx.compose.runtime:runtime:1.4.0-alpha01"
-    implementation 'androidx.compose.foundation:foundation:1.3.0'
-    implementation "androidx.compose.ui:ui:1.3.0"
-    implementation 'androidx.compose.ui:ui-tooling-preview:1.3.0'
-    implementation "androidx.compose.material:material:1.3.0"
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.3.0'
+    implementation "androidx.compose.runtime:runtime:1.4.0-alpha02"
+    implementation 'androidx.compose.foundation:foundation:1.3.1'
+    implementation "androidx.compose.ui:ui:1.3.1"
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.3.1'
+    implementation "androidx.compose.material:material:1.3.1"
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.3.1'
     implementation 'androidx.core:core-ktx:1.9.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }

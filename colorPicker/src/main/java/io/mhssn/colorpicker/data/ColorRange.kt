@@ -1,6 +1,6 @@
 package io.mhssn.colorpicker.data
 
-enum class ColorRange {
+internal enum class ColorRange {
     RedToYellow,
     YellowToGreen,
     GreenToCyan,

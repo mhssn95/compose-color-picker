@@ -25,7 +25,7 @@ import kotlin.math.roundToInt
 @ExperimentalComposeUiApi
 @Composable
 internal fun ClassicColorPicker(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     showAlphaBar: Boolean,
     onPickedColor: (Color) -> Unit
 ) {
