@@ -8,7 +8,9 @@ A color picker for Jetpack compose 🎨
 
 # Download
 
-🚧 Working on it 🚧
+```groovy
+implementation 'io.mhssn:colorpicker:1.0.0'
+```
 # Usage
 
 ```kotlin
