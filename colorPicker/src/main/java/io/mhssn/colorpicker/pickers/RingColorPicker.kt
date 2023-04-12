@@ -36,6 +36,7 @@ internal fun RingColorPicker(
     showDarkColorBar: Boolean,
     showAlphaBar: Boolean,
     showColorPreview: Boolean,
+    initialColor: Color,
     onPickedColor: (Color) -> Unit,
 ) {
     val density = LocalDensity.current
@@ -60,16 +61,16 @@ internal fun RingColorPicker(
         )
     }
     var selectedColor by remember {
-        mutableStateOf(Color.Red)
+        mutableStateOf(initialColor)
     }
     var color by remember {
-        mutableStateOf(Color.Red)
+        mutableStateOf(initialColor)
     }
     var lightColor by remember {
-        mutableStateOf(Color.Red)
+        mutableStateOf(initialColor)
     }
     var darkColor by remember {
-        mutableStateOf(Color.Red)
+        mutableStateOf(initialColor)
     }
     var lightness by remember {
         mutableStateOf(0f)
@@ -211,6 +212,7 @@ private fun RingColorPickerPreview() {
         showDarkColorBar = true,
         showAlphaBar = true,
         showColorPreview = true,
+        initialColor = Color.Blue,
         onPickedColor = {}
     )
 }

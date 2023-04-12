@@ -61,6 +61,7 @@ sealed class ColorPickerType {
         val showLightnessBar: Boolean = true,
         val showDarknessBar: Boolean = true,
         val showAlphaBar: Boolean = true,
+        val initialColor: Color = Color.Red,
         val showColorPreview: Boolean = true
     ) : ColorPickerType()
 
@@ -101,6 +102,7 @@ fun ColorPicker(
             )
             is ColorPickerType.Ring -> RingColorPicker(
                 ringWidth = type.ringWidth,
+                initialColor = type.initialColor,
                 previewRadius = type.previewRadius,
                 showLightColorBar = type.showLightnessBar,
                 showDarkColorBar = type.showDarknessBar,
